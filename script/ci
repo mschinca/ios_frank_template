@@ -11,7 +11,12 @@ bundle install
 
 xcodebuild -scheme 'testbbd' -workspace test_frank_workspace.xcworkspace -sdk iphonesimulator8.1 clean test
 
-cd /Users/marco/ios_test_frank/testbbd
+cd testbbd
+
+if [ ! -d Frank ]
+then
+  echo 1 | bundle exec frank setup
+fi
 
 bundle exec frank build --workspace ../test_frank_workspace.xcworkspace --scheme 'testbbd'
 cd ..
