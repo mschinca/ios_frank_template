@@ -1,0 +1,18 @@
+#!/bin/bash
+set -e
+
+export PATH=/usr/local/bin:$PATH
+export APP_BUNDLE_PATH=`pwd`/testbbd/Frank/frankified_build/Frankified.app
+
+eval "$(rbenv init -)"
+rbenv local 2.1.1
+
+bundle install
+
+xcodebuild -scheme 'testbbd' -workspace test_frank_workspace.xcworkspace -sdk iphonesimulator8.1 clean test
+
+cd /Users/marco/ios_test_frank/testbbd
+
+bundle exec frank build --workspace ../test_frank_workspace.xcworkspace --scheme 'testbbd'
+cd ..
+bundle exec cucumber features

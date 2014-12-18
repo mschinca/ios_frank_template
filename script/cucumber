@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+eval "$(rbenv init -)"
+rbenv local 2.1.1
+
+bundle install
+
+export APP_BUNDLE_PATH=`pwd`/Frank/frankified_build/Frankified.app
+
+bundle exec frank build --workspace 'Shutl Consumer App.xcworkspace' --scheme 'Shutl'
+bundle exec cucumber $1
